@@ -1,16 +1,26 @@
 import React, { Children } from 'react'
 import { LoginAdmin } from "../../pages/Admin"
+import {useAuth} from "../../hooks"
+import { TopMenu, SideMenu } from "../../components/Admin"
 import "./AdminLayout.scss"
 
 export function AdminLayout (props) {
     const { children } = props;
-    const auth = null
+    const { auth } = useAuth();
 
     if(!auth) return <LoginAdmin />
     return (
-        <div>
-            <p>Desde Admin loyout</p>
-            <div>{children}</div>
+        <div className='admin-layout'>
+            <div className='admin-layout__menu'>
+                <TopMenu />
+            </div>
+
+            <div className='admin-layout__main-content'>
+                <SideMenu>
+                    {children}
+                </SideMenu>
+            </div>
+            
         </div>
     )
 }
